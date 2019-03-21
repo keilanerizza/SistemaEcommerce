@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="clienteModule">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Sistema Ecommerce</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+</head>
+
+<body ng-controller="clienteControl">
+
+    <div ng-include="'menu.html'"></div>
+
+    <div class="card">
+        <div class="card-body">
+            Cadastro de Clientes
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="cadastro-tab" data-toggle="tab" href="#cadastro" role="tab"
+                aria-controls="tabCadastro" aria-selected="true">Cadastro</a>
+
+            <a class="nav-item nav-link" id="dados-tab" data-toggle="tab" href="#dados" role="tab"
+                aria-controls="tabDados" aria-selected="false">Dados</a>
+        </div>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
+            <br>
+            <button type="button" class="btn btn-primary" ng-click="novo()">Novo</button>
+            <button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
+            <button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
+            <button type="button" class="btn btn-warning" ng-click="pesquisar()" style="color:white">Pesquisar</button>
+            <br> <br>
+
+            <form class="was-validated form-row">
+                <div class="col-md-1 mb-3">
+                    <label for="txtCodigo">C&oacute;digo</label>
+                    <input type="text" ng-model="cliente.codigo" class="form-control" id="txtCodigo" disabled>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="txtNome">Nome</label>
+                    <input type="text" ng-model="cliente.nome" class="form-control is-valid" id="txtNome" required>
+                    <div class="invalid-feedback">
+                        Digite o nome.
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="txtCargo">Cargo</label>
+                    <input type="text" ng-model="cliente.cargo" class="form-control is-valid" id="txtCargo" required>
+                    <div class="invalid-feedback">
+                        Digite o cargo.
+                    </div>
+                </div>
+
+                <div class="col-md-5 mb-3">
+                    <label for="txtEndereco">Endere&ccedil;o</label>
+                    <input type="text" ng-model="cliente.endereco" class="form-control is-valid" id="txtEndereco" required>
+                    <div class="invalid-feedback">
+                        Digite o endere&ccedil;o.
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label for="txtCidade">Cidade</label>
+                    <input type="text" ng-model="cliente.cidade" class="form-control is-valid" id="txtCidade" required>
+                    <div class="invalid-feedback">
+                        Digite a cidade.
+                    </div>
+                </div>
+
+                <div class="col-md-2 mb-2">
+                    <label for="txtCep">CEP</label>
+                    <input type="text" ng-model="cliente.cep" class="form-control is-valid" id="txtCep" required>
+                    <div class="invalid-feedback">
+                        Digite o CEP.
+                    </div>
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label for="txtPais">Pa&iacute;s</label>
+                    <input type="text" ng-model="cliente.pais" class="form-control is-valid" id="txtPais" required>
+                    <div class="invalid-feedback">
+                        Digite o Pa&iacute;s.
+                    </div>
+                </div>
+
+                <div class="col-md-2 mb-2">
+                    <label for="txtTelefone">Telefone</label>
+                    <input type="text" ng-model="cliente.telefone" class="form-control is-valid" id="txtTelefone" required>
+                    <div class="invalid-feedback">
+                        Digite o telefone.
+                    </div>
+                </div>
+
+                <div class="col-md-2 mb-2">
+                    <label for="txtFax">Fax</label>
+                    <input type="text" ng-model="cliente.fax" class="form-control is-valid" id="txtFax" required>
+                    <div class="invalid-feedback">
+                        Digite o fax.
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="tab-pane fade" id="dados" role="tabpanel" aria-labelledby="dados-tab">
+            <div role="tabpanel" class="tab-pane" id="dados">
+                <input type="text" ng-model="criterio" class="form-control" placeholder="O que voc&ecirc; est&aacute; procurando?" /> <br>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">C&oacute;digo</th>
+                            <th scope="col">nome</th>
+                            <th scope="col">Cargo</th>
+                            <th scope="col">Endere&ccedil;o</th>
+                            <th scope="col">Cidade</th>
+                            <th scope="col">CEP</th>
+                            <th scope="col">Pa&iacute;s</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Fax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="clienteTabela in clientes | filter:criterio" ng-click="seleciona(clienteTabela)">
+                            <td>{{clienteTabela.codigo}}</td>
+                            <td>{{clienteTabela.nome}}</td>
+                            <td>{{clienteTabela.cargo}}</td>
+                            <td>{{clienteTabela.endereco}}</td>
+                            <td>{{clienteTabela.cidade}}</td>
+                            <td>{{clienteTabela.cep}}</td>
+                            <td>{{clienteTabela.pais}}</td>
+                            <td>{{clienteTabela.telefone}}</td>
+                            <td>{{clienteTabela.fax}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span ng-show="(clientes | filter: criterio).length == 0">Infelismente n&atilde;o temos o que voc&ecirc; est&aacute; procurando</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
+    <script src="control/clienteControl.js"></script>
+</body>
+
+</html>
