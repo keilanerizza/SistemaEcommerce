@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="livroModule">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Sistema Ecommerce</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+</head>
+
+<body ng-controller="livroControl">
+
+    <div ng-include="'menu.html'"></div>
+
+    <div class="card">
+        <div class="card-body">
+            Cadastro de livros
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="cadastro-tab" data-toggle="tab" href="#cadastro" role="tab"
+                aria-controls="tabCadastro" aria-selected="true">Cadastro</a>
+
+            <a class="nav-item nav-link" id="dados-tab" data-toggle="tab" href="#dados" role="tab"
+                aria-controls="tabDados" aria-selected="false">Dados</a>
+        </div>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
+            <br>
+            <button type="button" class="btn btn-primary" ng-click="novo()">Novo</button>
+            <button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
+            <button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
+            <button type="button" class="btn btn-warning" ng-click="pesquisar()" style="color:white">Pesquisar</button>
+            <br> <br>
+
+            <form class="was-validated form-row">
+                <div class="col-md-1 mb-3">
+                    <label for="txtCodigo">C&oacute;digo</label>
+                    <input type="text" ng-model="livro.codigo" class="form-control" id="txtCodigo" disabled>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="txtTitulo">T&iacute;tulo</label>
+                    <input type="text" ng-model="livro.titulo" class="form-control is-valid" id="txtTitulo" required>
+                    <div class="invalid-feedback">
+                        Digite o T&iacute;tulo.
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="txtPaginas">P&aacute;ginas</label>
+                    <input type="text" ng-model="livro.paginas" class="form-control is-valid" id="txtPaginas" required>
+                    <div class="invalid-feedback">
+                        Digite a quantidade de p&aacute;ginas.
+                    </div>
+                </div>
+
+                <div class="col-md-5 mb-3">
+                    <label for="txtGenero">G&ecirc;nero</label>
+                    <input type="text" ng-model="livro.genero" class="form-control is-valid" id="txtGenero" required>
+                    <div class="invalid-feedback">
+                        Digite o g&ecirc;nero;
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="tab-pane fade" id="dados" role="tabpanel" aria-labelledby="dados-tab">
+            <div role="tabpanel" class="tab-pane" id="dados">
+                <input type="text" ng-model="criterio" class="form-control" placeholder="O que voc&ecirc; est&aacute; procurando?" /> <br>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">C&oacute;digo</th>
+                            <th scope="col">T&iacute;tulo</th>
+                            <th scope="col">P&aacute;ginas</th>
+                            <th scope="col">G&ecirc;nero</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="livroTabela in livros | filter:criterio" ng-click="seleciona(livroTabela)">
+                            <td>{{livroTabela.codigo}}</td>
+                            <td>{{livroTabela.titulo}}</td>
+                            <td>{{livroTabela.paginas}}</td>
+                            <td>{{livroTabela.genero}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span ng-show="(livros | filter: criterio).length == 0">Infelizmente n&atilde;o temos o que voc&ecirc; est&aacute; procurando</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
+    <script src="control/livroControl.js"></script>
+</body>
+
+</html>
