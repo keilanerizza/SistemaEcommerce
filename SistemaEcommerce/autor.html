@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="autorModule">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Sistema Ecommerce</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+</head>
+
+<body ng-controller="autorControl">
+
+    <div ng-include="'menu.html'"></div>
+
+    <div class="card">
+        <div class="card-body">
+            Cadastro de autores
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="cadastro-tab" data-toggle="tab" href="#cadastro" role="tab"
+                aria-controls="tabCadastro" aria-selected="true">Cadastro</a>
+
+            <a class="nav-item nav-link" id="dados-tab" data-toggle="tab" href="#dados" role="tab"
+                aria-controls="tabDados" aria-selected="false">Dados</a>
+        </div>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
+            <br>
+            <button type="button" class="btn btn-primary" ng-click="novo()">Novo</button>
+            <button type="button" class="btn btn-success" ng-click="salvar()">Salvar</button>
+            <button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
+            <button type="button" class="btn btn-warning" ng-click="pesquisar()" style="color:white">Pesquisar</button>
+            <br> <br>
+
+            <form class="was-validated form-row">
+                <div class="col-md-1 mb-3">
+                    <label for="txtCodigo">C&oacute;digo</label>
+                    <input type="text" ng-model="autor.codigo" class="form-control" id="txtCodigo" disabled>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="txtNome">Nome</label>
+                    <input type="text" ng-model="autor.nome" class="form-control is-valid" id="txtNome" required>
+                    <div class="invalid-feedback">
+                        Digite o nome.
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="txtCategoria">Categoria</label>
+                    <input type="text" ng-model="autor.categoria" class="form-control is-valid" id="txtCategoria" required>
+                    <div class="invalid-feedback">
+                        Digite a categoria.
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="tab-pane fade" id="dados" role="tabpanel" aria-labelledby="dados-tab">
+            <div role="tabpanel" class="tab-pane" id="dados">
+                <input type="text" ng-model="criterio" class="form-control" placeholder="O que voc&ecirc; est&aacute; procurando?" /> <br>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">C&oacute;digo</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Categoria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="autorTabela in autores | filter:criterio" ng-click="seleciona(autorTabela)">
+                            <td>{{autorTabela.codigo}}</td>
+                            <td>{{autorTabela.nome}}</td>
+                            <td>{{autorTabela.categoria}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span ng-show="(autores | filter: criterio).length == 0">Infelizmente n&atilde;o temos o que voc&ecirc; est&aacute; procurando</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
+    <script src="control/autorControl.js"></script>
+</body>
+
+</html>
